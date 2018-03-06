@@ -1,6 +1,6 @@
-# i creat a file with name"Atmc.py" which contain the ATM as a class and WITHDRAW as function
-# then here i load the class ATM from the file Atmc.py by the folwing line 
-from Atmc import ATM
+from atm_list_class import ATM
+
+
 
 balance1 = 500
 balance2 = 1000
@@ -25,7 +25,6 @@ atm3.withdraw(100)
 atm3.withdraw(499)
 atm3.withdraw(600)
 
-atm1.show_withdraws()
-atm2.show_withdraws()
-atm3.show_withdraws()
-
+atm1.show_withdrawls()
+atm2.show_withdrawls()
+atm3.show_withdrawls()
