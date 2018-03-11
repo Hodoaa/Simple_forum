@@ -1,20 +1,16 @@
 class Member:
 	def __init__(self,name,age):
+		self.id = 0
 		self.name = name
 		self.age = age
-class MemberStore():
-	members = []
-	def add(self,member):
-		MemberStore.members.append(member)
-	def get_all(self):
-		return MemberStore.members
+		self.posts = []
+	def __str__(self):
+		return f"Name: {self.name}, Age: {self.age}"
 class Post:
-	def __init__(self,Post_Title,Post_Content):
+	def __init__(self,Post_Title,Post_Content,member_id = 0):
+		self.id = 0
 		self.Post_Title = Post_Title
 		self.Post_Content = Post_Content
-class PostStore():
-	posts = []
-	def add(self,post):
-		PostStore.posts.append(post)
-	def get_all(self):
-		return PostStore.posts
+		self.member_id = member_id
+	def __str__(self):
+		return f("Post_Title:  {self.Post_Title}, Post_Content: {self.Post_Content}")
