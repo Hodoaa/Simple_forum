@@ -1,7 +1,7 @@
 
-import models, stores
+import models
 from time import sleep
-
+#----------------------------------------------------------
 def create_members():
     member1 = models.Member("Ali", 45)
     member2 = models.Member("Mo'men", 13)
@@ -9,20 +9,17 @@ def create_members():
     member4 = models.Member("mona", 33)
 
     return member1, member2, member3, member4
-
-
+#-----------------------------------------------------------
 def store_members(members, store):
     for member in members:
         store.add(member)
-
-
+#------------------------------------------------------------
 def print_all_members(store):
     for member in store.get_all():
         print (member)
 
     print ("=" * 9 + " Print All Members " + "=" * 9)
-
-
+#---------------------------------------------------------------
 def create_posts():
     post1 = models.Post("Post1", "this is the post no: 1.", 1)
     sleep(0.1)
@@ -46,7 +43,7 @@ def create_posts():
 
     return post1, post2, post3, post4, post5, post6, post7, post8, post9, Post10
 
-
+#----------------------------------------------------------------------------------------
 def update_member(member, store):
     copy = models.Member(member.name, member.age)
     copy.id = member.id
@@ -56,15 +53,14 @@ def update_member(member, store):
     store.update(copy)
     print (store.get_by_id(member.id))
     print ("=" * 11 + " Update Member " + "=" * 11)
-
-
+#---------------------------------------------------------------------------------------------
 def search_members_by_name(name, store):
     results = store.get_by_name("Manar")
     for member in results:
         print (member)
     print ("=" * 10 + " Search Members " + "=" * 10)
 
-
+#-----------------------------------------------------------------------------------------------
 def view_members_with_posts(store, posts):
     members_with_posts = store.get_members_with_posts(posts)
     for member in members_with_posts:
@@ -72,27 +68,23 @@ def view_members_with_posts(store, posts):
         for post in member.posts:
             print ("\t{0}".format(post.title))
     print("=" * 20)
-
-
+#-------------------------------------------------------------------------------------------------
 def view_top_members_with_posts(store):
     top_members_with_posts = store.get_top_members_with_posts()
     for member in top_members_with_posts:
         print ("{0} has {1} posts".format(member.name, len(member.posts)))
     print("=" * 20)
-
-
+#--------------------------------------------------------------------------------------------------
 def store_posts(posts, store):
     for post in posts:
         store.add(post)
-
-
+#-----------------------------------------------------------------------------------------------------
 def view_posts_by_date(store):
     posts_by_date = store.get_posts_by_date()
     for post in posts_by_date:
         print ("{0} created at {1}".format(post.title, post.date))
     print("=" * 20)
-
-
+#------------------------------------------------------------------------------------------------------
 members = create_members()
 member_store = stores.MemberStore()
 store_members(members, member_store)
