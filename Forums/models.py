@@ -6,7 +6,6 @@ class Member:
 		self.posts = []
 	def __str__(self):
 		return "{0}, {1} Years Old".format(self.name, self.age)
-#-------------------------------------------------------------------------
 class Post:
 	def __init__(self,Post_Title,Post_Content,member_id = 0):
 		self.id = 0
@@ -16,4 +15,3 @@ class Post:
 		self.member_id = member_id
 	def __str__(self):
 		return "{0}: {1}...".format(self.Post_Title, self.Post_Content[:10])
-#----------------------------------------------------------------------------
