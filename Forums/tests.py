@@ -1,106 +1,110 @@
 
-import models, stores
-from time import sleep
+import models
+import stores
 
-def create_members():
-    member1 = models.Member("Ali", 45)
-    member2 = models.Member("Mo'men", 13)
-    member3 = models.Member("mazen", 19)
-    member4 = models.Member("mona", 33)
+#----------------------define functions for tests-------------------
 
-    return member1, member2, member3, member4
+def creat_members():
 
+	member1 = models.Member("Mohammad", 23)
+	member2 = models.Member("Ahmad", 25)
+	member3 = models.Member("Mohammad", 21)
+	print(member1)
+	print(member2)
+	print(member3)
+	print("=" * 30)
 
-def store_members(members, store):
-    for member in members:
-        store.add(member)
+	return member1, member2, member3
 
+def creat_posts():
 
-def print_all_members(store):
-    for member in store.get_all():
-        print (member)
+	post1 = models.Post("post 1", "this is post 1", 1)
+	post2 = models.Post("post 2", "this is post 2", 2)
+	post3 = models.Post("post 3", "this is post 3", 3)
+	post4 = models.Post("post 4", "this is post 4", 3)
+	post5 = models.Post("post 5", "this is post 5", 1)
+	post6 = models.Post("post 6", "this is post 6", 3)
+	print(post1)
+	print(post2)
+	print(post3)
+	print("=" * 30)
 
-    print ("=" * 9 + " Print All Members " + "=" * 9)
+	return post1, post2, post3, post4, post5, post6 
 
+def add_members_to_store(member_instances, members_store):
 
-def create_posts():
-    post1 = models.Post("1st Post", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", 1)
-    sleep(0.1)
-    post2 = models.Post("2nd Post", "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", 3)
-    sleep(0.1)
-    post3 = models.Post("3rd Post", "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", 2)
-    sleep(0.1)
-    post4 = models.Post("4th Post", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", 4)
-    sleep(0.1)
-    post5 = models.Post("5th Post", "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", 1)
-    sleep(0.1)
-    post6 = models.Post("6th Post", "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", 3)
-    sleep(0.1)
-    post7 = models.Post("7th Post", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", 1)
-    sleep(0.1)
-    post8 = models.Post("8th Post", "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", 3)
-    sleep(0.1)
-    post9 = models.Post("9th Post", "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", 1)
+	for member in member_instances:
+		members_store.add(member)
 
-    return post1, post2, post3, post4, post5, post6, post7, post8, post9
+def add_posts_to_store(post_instances, posts_store):
 
+	for post in post_instances:
+		posts_store.add(post)
 
-def update_member(member, store):
-    copy = models.Member(member.name, member.age)
-    copy.id = member.id
-    print (member)
-    print (copy)
-    copy.name = "Manar"
-    store.update(copy)
-    print (store.get_by_id(member.id))
-    print ("=" * 11 + " Update Member " + "=" * 11)
+def print_all_members(members_store):
+	print(members_store.get_all())
+	print("=" * 30)
 
+def get_member_by_id(members_store, id):
+	print(members_store.get_by_id(id))
+	print("=" * 30)
 
-def search_members_by_name(name, store):
-    results = store.get_by_name("Manar")
-    for member in results:
-        print (member)
-    print ("=" * 10 + " Search Members " + "=" * 10)
+def delete_member(members_store, member):
+	members_store.delete(member.id)
+	print(members_store.entity_exists(member))
+	print("=" * 30)
 
+def update_member(members_store, member):
+    member_copy = models.Member(member.name, member.age)
+    member_copy.id = member.id
 
-def view_members_with_posts(store, posts):
-    members_with_posts = store.get_members_with_posts(posts)
-    for member in members_with_posts:
-        print ("{0} has posts".format(member.name))
-        for post in member.posts:
-            print ("\t{0}".format(post.title))
-    print("=" * 20)
+    if member_copy is not member:
+        print("member and member_copy are not the same !")
 
+    print(member_copy)
+    member_copy.name = "Mazen"
+    members_store.update(member_copy)
+    print(member_copy.name)
+    print(member)
+    print_all_members(members_store)
+	
+def get_member_by_name(members_store, name):	
+	print(members_store.get_by_name(name))
+	print("=" * 30)
 
-def view_top_members_with_posts(store):
-    top_members_with_posts = store.get_top_members_with_posts()
-    for member in top_members_with_posts:
-        print ("{0} has {1} posts".format(member.name, len(member.posts)))
-    print("=" * 20)
+def print_members_with_posts(members_store):
+	members_with_posts = members_store.get_members_with_posts(posts_store.get_all())
 
+	for member_with_posts in members_with_posts:
+		print(f"{member_with_posts} has posts:")
+		for post in member_with_posts.posts:
+			print(f"\t{post}")
 
-def store_posts(posts, store):
-    for post in posts:
-        store.add(post)
+	print("=" * 30)
 
+def print_top_two(members_store):
+	print(members_store.get_top_two())
+	print("=" * 30)
 
-def view_posts_by_date(store):
-    posts_by_date = store.get_posts_by_date()
-    for post in posts_by_date:
-        print ("{0} created at {1}".format(post.title, post.date))
-    print("=" * 20)
+def print_date_sorted_posts(posts_store):
+	print(posts_store.get_posts_by_date())
 
+#--------------------------call functions for tests------------------------
 
-members = create_members()
-member_store = stores.MemberStore()
-store_members(members, member_store)
-# print_all_members(member_store)
-# update_member(members[3], member_store)
-# search_members_by_name("Manar", member_store)
+members_store = stores.MembersStore()
+posts_store = stores.PostsStore()
+member_instances = creat_members()
+member1, member2, member3 = member_instances
+post_instances = creat_posts()
+post1, post2, post3, post4, post5, post6 = post_instances
 
-posts = create_posts()
-post_store = stores.PostStore()
-store_posts(posts, post_store)
-
-# view_mem
-store_should_get_top_two(member_store, post_store)
+add_members_to_store(member_instances, members_store)
+add_posts_to_store(post_instances, posts_store)
+print_all_members(members_store)
+get_member_by_id(members_store, 1)
+delete_member(members_store, member2)
+update_member(members_store ,member3)
+get_member_by_name(members_store, "Mohammad")
+print_members_with_posts(members_store)
+print_top_two(members_store)
+print_date_sorted_posts(posts_store)
